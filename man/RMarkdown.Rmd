@@ -10,6 +10,18 @@ knitr::opts_chunk$set(echo = TRUE)
 ## R Markdown
 
 ```{r}
-DNA = random_dna()
+library("tidyverse")
+```
+
+
+```{r}
+
+random_dna()
+
+mk_codons
+
+dna_codons_to_aa()
+
+aa_statistics(aa)
 ```
 
