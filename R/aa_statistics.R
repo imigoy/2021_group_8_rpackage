@@ -8,19 +8,23 @@
 #' @export
 #'
 #' @examples
-#' aa_statistics("NIAM")
+#' aa_statistics("ALMVGLFNDR")
 #'
 
 
 aa_statistics <- function(aa_string){
-  aa_length <- sum(aa_string)
-  aliphatic <- sum(str_count(aa_string, c("L", "I", "A", "M", "V")))
-  aromatic <- str_count(aa_string, c("F", "W", "Y"))
-  neutral <- str_count(aa_string, c("N", "C", "Q", "S", "T", "G", "P"))
-  acidc <- str_count(aa_string, c("D", "E"))
-  basic <- str_count(aa_string, c("R", "H", "K"))
+  aliphatic <- str_count(aa_string, c("L", "I", "A", "M", "V")) %>% sum()
+  aromatic <- sum(str_count(aa_string, c("F", "W", "Y"))) %>% sum()
+  neutral <- str_count(aa_string, c("N", "C", "Q", "S", "T", "G", "P")) %>% sum()
+  acidc <- str_count(aa_string, c("D", "E")) %>% sum()
+  basic <- str_count(aa_string, c("R", "H", "K")) %>% sum()
   
-  aa_groups <- c("aliphatic", "aromatic", "neutral", "acdic", "basic")
-  aa_count <-  c(aliphatic, aromatic, neutral, acdic, basic)
-  
+  aa_groups <- c("aliphatic", "aromatic", "neutral", "acidc", "basic")
+  aa_count <-  c(aliphatic, aromatic, neutral, acidc, basic)
+  aa_df <- as.data.frame(aa_groups, aa_count)
+  plot <- aa_df %>% 
+    ggplot(mapping = aes(x = aa_groups, y = aa_count)) +
+    geom_col()
+  plot
+ 
 }
